@@ -1,5 +1,16 @@
 .DS_Store
 *~
 .config/*
-!.config/fish
+!.config/nvim/*
+.config/nvim/dein/*
 .zsh/history/
+
+
+# keyfiles
+*.key
+*.pub
+*.pem
+*.id_rsa
+.ssh/known_hosts
+
+
