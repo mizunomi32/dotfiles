@@ -11,6 +11,7 @@
 *.pub
 *.pem
 *.id_rsa
+id_rsa
 .ssh/known_hosts
 
 
