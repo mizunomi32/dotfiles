@@ -2,7 +2,6 @@ set termguicolors
 set number
 set clipboard=unnamed
 "set cursorline
-
 " タブをスペースに置き換え
 set tabstop=2
 set shiftwidth=2
@@ -10,13 +9,14 @@ set softtabstop=0
 set expandtab
 set smarttab
 set shiftround
-
 set encoding=UTF-8
 " フォント指定
 set guifont=Cica:h16
 set printfont=Cica:h12
 set ambiwidth=double
 
+" マウス
+set mouse=a
 " nvim の使うpython3を指定
 "let g:python3_host_prog = expand($HOME.'/.pyenv/versions/anaconda3-5.2.0/bin/python3')
 let s:config_dir = $HOME.'/.config/nvim/'
@@ -26,7 +26,9 @@ let s:dein_dir = s:config_dir.'dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
+  echo 'geting dein'
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+  echo 'getting neovim from pip'
   call system('pip install neovim')
   call system('pip3 install neovim')
 endif
@@ -49,13 +51,20 @@ if dein#load_state(s:dein_dir)
   "
   " Add or remove your plugins here:
   "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
+  :"call dein#add('Shougo/neosnippet-snippets')
 
   " Pluginをtomlで管理
-  let s:toml = s:config_dir . '/dein.toml'
-  let s:toml_lazy = s:config_dir . '/dein_lazy.toml'
+  let s:toml = s:config_dir . '/rc/dein.toml'
+  let s:toml_lazy = s:config_dir . '/rc/dein_lazy.toml'
   call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:toml_lazy, {'lazy': 0})
+  call dein#load_toml(s:toml_lazy, {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_python.toml', {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_ruby.toml', {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_javascript.toml', {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_html.toml', {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_php.toml', {'lazy': 1})
+  call dein#load_toml(s:config_dir . '/rc/dein_css.toml', {'lazy': 1})
+
 
   " You can specify revision/branch/tag.
   call dein#add('Shougo/deol.nvim', { 'rev': '01203d4c9' })
@@ -123,10 +132,10 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 " Insertモードで <Tab> を挿入するとき、代わりに適切な数の空白を使う。（有効:expandtab/無効:noexpandtab）
 ":set noexpandtab
 " オンのときは、ウィンドウの幅より長い行は折り返され、次の行に続けて表示される。（有効:wrap/無効:nowrap）
-:set nowrap
+set nowrap
 
 " 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。（有効:wrapscan/無効:nowrapscan）
-:set wrapscan
+set wrapscan
 " # 独自キーバインド
 tnoremap <silent> <ESC> <C-\><C-n>
 
@@ -161,6 +170,10 @@ autocmd BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby %
 autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python %
 autocmd BufNewFile,BufRead *.pl nnoremap <C-e> :!perl %
 
+imap <C-j> <Up>
+imap <C-k> <Down>
+imap <C-h> <Left>
+imap <C-l> <Right>
 " python 自動修正
 " original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829
 function! Preserve(command)
