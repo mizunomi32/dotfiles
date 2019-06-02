@@ -1,0 +1,66 @@
+
+# インデントを可視化
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+# 無駄な空白をハイライト
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+on_ft = ['c', 'python', 'ruby','javascript', 'jsx']
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_source = '''
+"colorscheme tir_black
+set ts=2 sw=2 et
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+let g:indent_guides_enable_on_vim_startup = 1
+
+'''
+# 補完
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = "has('nvim')"
+on_i = 1
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+'''
+"on_event = "InsertCharPre"
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+# c/ c++ /obj-c/obj-c++の補完
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+on_ft = ['c', 'cpp', 'cmake']
+hook_source = '''
+    let g:deoplete#sources#clang#libclang_path = system("llvm-config --prefix")[:-2] . '/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header = system("llvm-config --prefix")[:-2] . '/lib/clang'
+    let g:deoplete#sources#clang#sort_algo = 'priority'
+    let g:deoplete#sources#clang#clang_complete_database="./build/"
+'''
+depends = ['deoplete.nvim']
+on_i = 1
+on_ft = ['c', 'cpp']
+# go 補完
+[[plugins]]
+repo = "zchee/deoplete-go"
+build ="make"
+# 絵文字
+[[plugins]]
+repo = 'fszymanski/deoplete-emoji'
+depends = ['deoplete.nvim']
+# 雑多な言語系
+[[plugins]]
+repo = 'simeji/winresizer'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+on_ft = ['md']
+

@@ -1,0 +1,91 @@
+# 起動時読み込みプラグイン
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+[[plugins]] # 非同期処理
+repo = 'Shougo/vimproc.vim'
+[[plugins]]
+repo = 'Haron-Prime/Antares'
+hook_add = '''
+colorscheme Antares
+'''
+
+# ステータスバー
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+	" モードの表示名を定義(デフォルトだと長くて横幅を圧迫するので略称にしている)
+	let g:airline_mode_map = {
+    				\ '__' : '-',
+    				\ 'n'  : 'N',
+    				\ 'i'  : 'I',
+    				\ 'R'  : 'R',
+    				\ 'c'  : 'C',
+    				\ 'v'  : 'V',
+    				\ 'V'  : 'V',
+    				\ '' : '',
+    				\ 's'  : 'S',
+    				\ 'S'  : 'S',
+    				\ }
+	" パワーラインでかっこよく
+	let g:airline_powerline_fonts = 1
+	" カラーテーマ指定してかっこよく
+	let g:airline_theme = 'badwolf'
+	" タブバーをかっこよく
+	let g:airline#extensions#tabline#enabled = 1
+	" 選択行列の表示をカスタム(デフォルトだと長くて横幅を圧迫するので最小限に)
+	let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+	" virtulenvを認識しているか確認用に、現在activateされているvirtualenvを表示(vim-virtualenvの拡張)
+	let g:airline#extensions#virtualenv#enabled = 1
+	" gitのHEADから変更した行の+-を非表示(vim-gitgutterの拡張)
+	let g:airline#extensions#hunks#enabled = 0
+
+	" Lintツールによるエラー、警告を表示(ALEの拡張)
+	let g:airline#extensions#ale#enabled = 1
+	let g:airline#extensions#ale#error_symbol = 'E:'
+	let g:airline#extensions#ale#warning_symbol = 'W:'
+'''
+depends = ['vim-airline-themes']
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+# ファイルマネージャ
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+  call denite#custom#option('default', 'prompt', '>')
+  " denite/insert モードのときは，C- で移動できるようにする
+  call denite#custom#map('insert', "<C-j>", '<denite:move_to_next_line>')
+  call denite#custom#map('insert', "<C-k>", '<denite:move_to_previous_line>')
+  " deniteの起動位置をtopに変更
+  call denite#custom#option('default', 'direction', 'bottom')
+
+
+  nnoremap [denite] <Nop>
+  nmap <C-c> [denite]
+
+  " 現在開いているファイルのディレクトリ下のファイル一覧。
+  nnoremap <silent> [denite]f :<C-u>DeniteBufferDir
+      \ -direction=topleft -cursor-wrap=true file file:new<CR>
+  " バッファ一覧
+  nnoremap <silent> [denite]b :<C-u>Denite -direction=topleft -cursor-wrap=true buffer<CR>
+
+'''
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  let g:NERDTreeDirArrowExpandable = '▸'
+  let g:NERDTreeDirArrowCollapsible = '▾'
+  let g:NERDTreeShowHidden=1
+  map <C-w> :NERDTreeToggle<CR>
+'''
+[[plugins]]
+repo = 'yuratomo/w3m.vim'
+hook_add = '''
+  " ホームページ
+  let g:w3m#homepage = "http://www.google.com/"
+
+  " デフォルトの検索エンジン
+  let g:w3m#search_engine = 'https://www.google.com/search?'
+'''

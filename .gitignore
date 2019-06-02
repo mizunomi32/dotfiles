@@ -3,6 +3,7 @@
 
 .config/*
 !.config/nvim/*
+!.config/nvim/rc/*.toml
 .config/nvim/dein/*
 !.config/zsh/*
 

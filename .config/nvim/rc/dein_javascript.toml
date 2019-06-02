@@ -1,0 +1,10 @@
+
+# js 補完
+[[plugins]]
+# repo = ''
+repo = 'carlitux/deoplete-ternjs'
+depends = ['deoplete.nvim']
+on_ft = ['javascript','jsx']
+[[plugins]] # ES6のハイライト
+repo = 'othree/yajs.vim'
+on_ft = ['javascript','jsx']
